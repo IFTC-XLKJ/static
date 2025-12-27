@@ -31,11 +31,11 @@
             });
             ws.addEventListener('close', function (event) {
                 console.log('close');
-                start();
+                setTimeout(start, 5000);
             });
             ws.addEventListener('error', function (event) {
                 console.log('error', event);
-                start();
+                setTimeout(start, 5000);
             });
             console.log(ws);
             /**
