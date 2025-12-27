@@ -22,6 +22,9 @@
                 console.log('message', event.data);
                 try {
                     const data = JSON.parse(event.data);
+                    if (data.type == "error") {
+                        console.log(data.message, data.error);
+                    }
                 } catch (e) {
                     console.log(e);
                 }
