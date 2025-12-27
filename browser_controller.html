@@ -10,22 +10,37 @@
 <body>
     <canvas id="canvas"></canvas>
     <script>
-        async function start(){
+        async function start() {
             const ws = new WebSocket('wss://api.iftc.workers.dev/browser_controller');
             ws.addEventListener('open', function (event) {
                 console.log('open');
+                sender({
+                    type: "init",
+                });
             });
             ws.addEventListener('message', function (event) {
                 console.log('message', event.data);
+                try {
+                    const data = JSON.parse(event.data);
+                } catch (e) {
+                    console.log(e);
+                }
             });
             ws.addEventListener('close', function (event) {
                 console.log('close');
+                start();
             });
             ws.addEventListener('error', function (event) {
                 console.log('error', event);
                 start();
             });
             console.log(ws);
+            /**
+             * @param {Object} data
+             */
+            function sender(data) {
+                ws.send(JSON.stringify(data));
+            }
         }
         start();
     </script>
